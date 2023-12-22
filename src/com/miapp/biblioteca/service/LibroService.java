@@ -5,17 +5,15 @@ import java.util.ArrayList;
 public class LibroService {
     //Atributos
     private ArrayList<Libro> biblioteca; //listado de libros de la biblioteca
-    //Constructores
 
+    //Constructores
     public LibroService(ArrayList<Libro> biblioteca) {
         this.biblioteca = biblioteca;
     }
 
     //metodos
 
-    /*
-    CRUD
-    */
+    /*CRUD*/
 
     //Crear libro (Create)
     public void create(String titulo, String autor, String isbn, String genero){
@@ -35,6 +33,33 @@ public class LibroService {
         }
         return null;
     }
+    //leer un libro por título(Read by title)
+    public Libro readByTitle(String titulo){
+        for (Libro libro : biblioteca) {
+            if (libro.getTitulo().equals(titulo)) {
+                return libro;
+            }
+        }
+        return null;
+    }
+    //leer un libro por autor(Read by author)
+    public Libro readByAuthor(String autor){
+        for (Libro libro : biblioteca) {
+            if (libro.getAutor().equals(autor)) {
+                return libro;
+            }
+        }
+        return null;
+    }
+    //leer un libro por género(Read by genre)
+    public Libro readByGenre(String genero){
+        for (Libro libro : biblioteca) {
+            if (libro.getGenero().equals(genero)) {
+                return libro;
+            }
+        }
+        return null;
+    }
     //Actualizar un libro por ISBN(Update by ISBN)
     public void updateByISBN(String isbn, String nuevoTitulo, String nuevoAutor, String nuevoGenero){
         Libro libro = readByISBN(isbn);
@@ -42,6 +67,13 @@ public class LibroService {
             libro.setTitulo(nuevoTitulo);
             libro.setAutor(nuevoAutor);
             libro.setGenero(nuevoGenero);
+        }
+    }
+    //cambiar el estado de disponibilidad de un libro
+    public void cambiarEstadoDisponibilidad(String isbn, boolean nuevoEstado){
+        Libro libro = readByISBN(isbn);
+        if (libro != null) {
+            libro.setDisponible(nuevoEstado);
         }
     }
     //Eliminar un libro por ISBN(Delete by ISBN)

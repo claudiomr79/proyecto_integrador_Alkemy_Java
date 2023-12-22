@@ -1,5 +1,4 @@
 package com.miapp.biblioteca;
-
 import java.util.ArrayList;
 
 public class Usuario {
@@ -39,6 +38,8 @@ public class Usuario {
     public ArrayList<Libro> getLibrosPrestados() {
         return libroPrestados;
     }
+
+   //métodos
 
     //método toString
 
