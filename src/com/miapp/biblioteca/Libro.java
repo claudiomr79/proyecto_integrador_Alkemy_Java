@@ -1,22 +1,22 @@
 package com.miapp.biblioteca;
 
-public class Libros {
+public class Libro {
     //atributos
     private String titulo;
     private String autor;
     private String ISBN;
     private String genero;
-    private String disponible;
+    private boolean disponible;
 
    //constructores
-    public Libros(String titulo, String autor, String isbn, String genero, String disponible) {
+    public Libro(String titulo, String autor, String isbn, String genero) {
         this.titulo = titulo;
         this.autor = autor;
         this.ISBN = isbn;
         this.genero = genero;
-        this.disponible = disponible;
+        this.disponible = true;
     }
-    public Libros(){
+    public Libro(){
 
     }
 
@@ -33,7 +33,7 @@ public class Libros {
     public String getGenero() {
         return genero;
     }
-    public String getDisponible() {
+    public boolean getDisponible() {
         return disponible;
     }
     public void setTitulo(String titulo) {
@@ -48,8 +48,13 @@ public class Libros {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    public void setDisponible(String disponible) {
+
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    public boolean isDisponible() {
+       return disponible;
     }
     //método toString
 

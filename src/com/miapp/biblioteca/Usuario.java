@@ -2,20 +2,20 @@ package com.miapp.biblioteca;
 
 import java.util.ArrayList;
 
-public class Usuarios {
+public class Usuario {
 
     //atributos
     private String nombre;
     private String id;
-    private ArrayList<Libros> librosPrestados ;
+    private ArrayList<Libro> libroPrestados;
 
     //constructores
-    public Usuarios(String nombre, String id) {
+    public Usuario(String nombre, String id) {
         this.nombre = nombre;
         this.id = id;
-        this.librosPrestados = new ArrayList<Libros>();
+        this.libroPrestados = new ArrayList<Libro>();
     }
-    public Usuarios(){
+    public Usuario(){
 
     }
     //getters y setters
@@ -36,18 +36,18 @@ public class Usuarios {
         this.id = id;
     }
 
-    public ArrayList<Libros> getLibrosPrestados() {
-        return librosPrestados;
+    public ArrayList<Libro> getLibrosPrestados() {
+        return libroPrestados;
     }
 
     //método toString
 
     @Override
     public String toString() {
-        return "Usuarios{" +
+        return "Usuario{" +
                 "nombre='" + nombre + '\'' +
                 ", id='" + id + '\'' +
-                ", librosPrestados=" + librosPrestados +
+                ", librosPrestados=" + libroPrestados +
                 '}';
     }
 }
