@@ -14,8 +14,14 @@ public class UsuarioService {
     /*CRUD*/
     //Crear usuario (Create)
     public void create(String nombre, String id){
-        Usuario nuevoUsuario = new Usuario(nombre, id);
-        usuarios.add(nuevoUsuario);
+        if(readByID(id) != null){
+            System.out.println("Ya existe un usuario con el id: " + id);
+            return;
+        }else{
+            Usuario nuevoUsuario = new Usuario(nombre, id);
+            usuarios.add(nuevoUsuario);
+            System.out.println("Usuario creado");
+        }
     }
     //Leer todos los usuarios(Read)
     public ArrayList<Usuario> readAll(){
@@ -28,6 +34,7 @@ public class UsuarioService {
                 return usuario;
             }
         }
+        System.out.println("No se ha encontrado el usuario con el id: " + id);
         return null;
     }
     //Actualizar un usuario por ID(Update by ID)
@@ -35,17 +42,24 @@ public class UsuarioService {
         for (Usuario usuario : usuarios) {
             if (usuario.getId().equals(id)) {
                 usuario.setNombre(nombre);
+                System.out.println("Usuario actualizado");
+                return; //para que no siga buscando
             }
         }
+        System.out.println("No se ha encontrado el usuario con el id: " + id);
     }
     //Eliminar un usuario por ID(Delete by ID)
     public void deleteByID(String id){
         for (Usuario usuario : usuarios) {
             if (usuario.getId().equals(id)) {
                 usuarios.remove(usuario);
+                System.out.println("Usuario eliminado");
+                return; //para que no siga buscando
             }
         }
+        System.out.println("No se ha encontrado el usuario con el id: " + id);
     }
+    //--------------------------------------------------------
     //agregar libro prestado a la lista de libros prestados del usuario
     public void agregarLibroPrestadoAlista(Usuario usuario, Libro libro){
         usuario.getLibrosPrestados().add(libro);
