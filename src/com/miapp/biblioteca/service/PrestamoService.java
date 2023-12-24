@@ -49,9 +49,9 @@ public class PrestamoService {
         for (Prestamo prestamo : prestamos) {
             if (prestamo.getLibro().equals(libro)) {
                 prestamos.remove(prestamo);
+                return;
             }
         }
-
         //cambiar el estado del libro a disponible
         LibroService libroService = new LibroService(librosEnBiblioteca);
         libroService.readByISBN(libro.getISBN()).setDisponible(true);

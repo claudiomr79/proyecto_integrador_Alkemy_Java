@@ -134,7 +134,7 @@ public class Main {
                     break;
                 case 7:
                     //Leer todos los libros
-                    System.out.println("Leer todos los libros");
+                    System.out.println("Listado de libros");
                     System.out.println(libroService.readAll());
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
@@ -142,10 +142,84 @@ public class Main {
                     break;
                 case 8:
                     //Leer un libro por ISBN
-                    System.out.println("Leer un libro por ISBN");
+                    System.out.println("Buscar un libro por ISBN");
                     System.out.println("Introduce el ISBN del libro");
                     String isbnLibro = sc.nextLine();
                     System.out.println(libroService.readByISBN(isbnLibro));
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 9:
+                    //Leer un libro por título
+                    System.out.println("Buscar un libro por título");
+                    System.out.println("Introduce el título del libro");
+                    String tituloLibro = sc.nextLine();
+                    System.out.println(libroService.readByTitle(tituloLibro));
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 10:
+                    //Buscar libros por autor
+                    System.out.println("Buscar libros por autor");
+                    System.out.println("Introduce el autor del libro");
+                    String autorLibro = sc.nextLine();
+                    System.out.println(libroService.readByAuthor(autorLibro));
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 11:
+                    //Leer un libro por género
+                    System.out.println("Buscar un libro por género");
+                    System.out.println("Introduce el género del libro");
+                    String generoLibro = sc.nextLine();
+                    System.out.println(libroService.readByGenre(generoLibro));
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 12:
+                    //Prestar libro a usuario
+                    System.out.println("Prestar libro a usuario");
+                    System.out.println("Introduce el id del usuario");
+                    String idUsuario4 = sc.nextLine();
+                    System.out.println("Introduce el ISBN del libro");
+                    String isbnLibro2 = sc.nextLine();
+                    System.out.println("Introduce la fecha de prestamo");
+                    String fechaPrestamo = sc.nextLine();
+                    try {
+                        prestamoService.create(usuarioService.readByID(idUsuario4), libroService.readByISBN(isbnLibro2), fechaPrestamo);
+                        System.out.println("Libro prestado");
+                    }catch (Exception e){
+                        System.out.println("Error al prestar el libro");
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 13:
+                    //Devolver libro
+                    System.out.println("Devolver libro");
+                    System.out.println("Introduce el ISBN del libro");
+                    String isbnLibro3 = sc.nextLine();
+                    try {
+                        prestamoService.deleteByLibro(libroService.readByISBN(isbnLibro3));
+                        System.out.println("Libro devuelto");
+                    }catch (Exception e){
+                        System.out.println("Error al devolver el libro");
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println("pulse cualquier tecla...");
+                    sc.nextLine();
+                    limpiarPantalla();
+                    break;
+                case 14:
+                    //Lista de prestamos
+                    System.out.println("Lista de prestamos");
+                    System.out.println(prestamoService.readAll());
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -168,6 +242,7 @@ public class Main {
 
     private static void menu() {
         System.out.println("Bienvenido a la biblioteca");
+        System.out.println();
         System.out.println("---------------------------");
         System.out.println("1. Crear usuario");
         System.out.println("2. Leer todos los usuarios");
@@ -175,13 +250,14 @@ public class Main {
         System.out.println("4. Actualizar un usuario por ID");
         System.out.println("5. Eliminar un usuario por ID");
         System.out.println("6. Crear libro");
-        System.out.println("7. Leer todos los libros");
-        System.out.println("8. Leer un libro por ISBN");
-        System.out.println("9. Leer un libro por título");
-        System.out.println("10. Leer un libro por autor");
-        System.out.println("11. Leer un libro por género");
+        System.out.println("7. Listado de libros");
+        System.out.println("8. Buscar un libro por ISBN");
+        System.out.println("9. Buscar un libro por título");
+        System.out.println("10. Buscar libros por autor");
+        System.out.println("11. Buscar libros por género");
         System.out.println("12. Prestar libro a usuario");
         System.out.println("13. Devolver libro");
+        System.out.println("14. Lista de prestamos");
         System.out.println("0. Salir");
         System.out.println("----------------------------");
         System.out.print("Elija una opción: ");

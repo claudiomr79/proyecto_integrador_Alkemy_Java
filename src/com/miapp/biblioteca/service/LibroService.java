@@ -42,23 +42,35 @@ public class LibroService {
         }
         return null;
     }
-    //leer un libro por autor(Read by author)
-    public Libro readByAuthor(String autor){
-        for (Libro libro : biblioteca) {
-            if (libro.getAutor().equals(autor)) {
-                return libro;
+    //Buscar libros por autor(Read by author)
+    public ArrayList<Libro> readByAuthor(String autor){
+        ArrayList<Libro> librosEncontrados = new ArrayList<>();
+        try {
+            for (Libro libro : biblioteca) {
+                if (libro.getAutor().equals(autor)) {
+                    librosEncontrados.add(libro);
+                }
             }
+            return librosEncontrados;
+        }catch (Exception e){
+            System.out.println("No se ha encontrado ningún libro con el autor: " + autor);
+            return null;
         }
-        return null;
     }
-    //leer un libro por género(Read by genre)
-    public Libro readByGenre(String genero){
-        for (Libro libro : biblioteca) {
-            if (libro.getGenero().equals(genero)) {
-                return libro;
+    //Buscar libros por género(Read by genre)
+    public ArrayList<Libro> readByGenre(String genero){
+        ArrayList<Libro> librosEncontrados = new ArrayList<>();
+        try {
+            for (Libro libro : biblioteca) {
+                if (libro.getGenero().equals(genero)) {
+                    librosEncontrados.add(libro);
+                }
             }
+            return librosEncontrados;
+        }catch (Exception e){
+            System.out.println("No se ha encontrado ningún libro con el género: " + genero);
+            return null;
         }
-        return null;
     }
     //Actualizar un libro por ISBN(Update by ISBN)
     public void updateByISBN(String isbn, String nuevoTitulo, String nuevoAutor, String nuevoGenero){

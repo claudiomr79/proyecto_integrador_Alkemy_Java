@@ -47,11 +47,26 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "usuario='" + usuario.getNombre() + '\'' +
-                ", libro='" + libro.getTitulo() + '\'' +
-                ", fechaPrestamo='" + fechaPrestamo + '\'' +
-                ", devuelto=" + devuelto +
-                '}';
+        if (devuelto){
+            String ok = "Prestamo devuelto";
+            return "\n\tPrestamo{" +
+                    "usuario =" + usuario.getNombre() +
+                    "Id =" + usuario.getId() +
+                    ", libro =" + libro.getTitulo() +
+                    ", ISBN " + libro.getISBN() +
+                    ", fechaPrestamo ='" + fechaPrestamo + '\'' +
+                    ", devuelto =" + ok +
+                    '}';
+        }else {
+            String ok = "Prestamo no devuelto";
+            return "\n\tPrestamo{" +
+                    "usuario =" + usuario.getNombre() +
+                    "Id =" + usuario.getId() +
+                    ", libro =" + libro.getTitulo() +
+                    ", ISBN " + libro.getISBN() +
+                    ", fechaPrestamo ='" + fechaPrestamo + '\'' +
+                    ", devuelto =" + ok +
+                    '}';
+        }
     }
 }
