@@ -11,8 +11,7 @@ import java.util.Scanner;
 public class Main {
     //clase Main
     public static void main(String[] args) {
-       //limpiar pantalla
-        limpiarPantalla();
+
         ArrayList<Libro> biblio = new ArrayList<>();
         ArrayList<Usuario> usuariosEnBiblioteca = new ArrayList<>();
         ArrayList<Prestamo> prestamosEnBiblioteca = new ArrayList<>();
@@ -41,9 +40,11 @@ public class Main {
         usuarioService.create("Luis", "5");
         usuarioService.create("Lucía", "6");
         //crear prestamos
-        prestamoService.create(usuarioService.readByID("2"), libroService.readByISBN("125"), "01/01/2021");
         prestamoService.create(usuarioService.readByID("1"), libroService.readByISBN("1234"), "02/01/2021");
-
+        prestamoService.create(usuarioService.readByID("1"), libroService.readByISBN("444"), "03/01/2021");
+        prestamoService.create(usuarioService.readByID("2"), libroService.readByISBN("125"), "01/01/2021");
+        //limpiar pantalla
+        limpiarPantalla();
         do{
             //menu
             menu();//llamo al menu
@@ -58,8 +59,12 @@ public class Main {
                     String nombre = sc.nextLine();
                     System.out.println("Introduce el id del usuario");
                     String id = sc.nextLine();
-                    usuarioService.create(nombre, id);//despues verificar que no se repita el id
-                    System.out.println(usuarioService.readAll());
+                    try{
+                        usuarioService.create(nombre, id);
+                        }catch (Exception e){
+                        System.out.println("Error al crear el usuario");
+                    }
+                    System.out.println(usuarioService.readAll());//ver lista de usuarios de la biblioteca
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -77,7 +82,10 @@ public class Main {
                     System.out.println("Leer un usuario por ID");
                     System.out.println("Introduce el id del usuario");
                     String idUsuario = sc.nextLine();
-                    System.out.println(usuarioService.readByID(idUsuario));
+                    if (usuarioService.readByID(idUsuario) == null){
+                        System.out.println("No se ha encontrado ningún usuario con el id: " + idUsuario);
+                    }else
+                        System.out.println(usuarioService.readByID(idUsuario));
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -89,7 +97,11 @@ public class Main {
                     String idUsuario2 = sc.nextLine();
                     System.out.println("Introduce el nuevo nombre del usuario");
                     String nombreUsuario = sc.nextLine();
-                    usuarioService.updateByID(idUsuario2, nombreUsuario);
+                    try {
+                        usuarioService.updateByID(idUsuario2, nombreUsuario);
+                    }catch (Exception e){
+                        System.out.println("Error al actualizar el usuario");
+                    }
                     System.out.println(usuarioService.readAll());
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
@@ -104,7 +116,6 @@ public class Main {
                         usuarioService.deleteByID(idUsuario3);
                     }catch (Exception e){
                         System.out.println("Error al eliminar el usuario");
-                        System.out.println(e.getMessage());
                     }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
@@ -141,11 +152,18 @@ public class Main {
                     limpiarPantalla();
                     break;
                 case 8:
-                    //Leer un libro por ISBN
+                    //Buscar un libro por ISBN
                     System.out.println("Buscar un libro por ISBN");
                     System.out.println("Introduce el ISBN del libro");
                     String isbnLibro = sc.nextLine();
-                    System.out.println(libroService.readByISBN(isbnLibro));
+                    try {
+                        if(libroService.readByISBN(isbnLibro) == null){
+                            System.out.println("No se ha encontrado ningún libro con el ISBN: " + isbnLibro);
+                        }else
+                            System.out.println(libroService.readByISBN(isbnLibro));
+                    }catch (Exception e){
+                        System.out.println("Error al buscar el libro");
+                    }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -165,7 +183,15 @@ public class Main {
                     System.out.println("Buscar libros por autor");
                     System.out.println("Introduce el autor del libro");
                     String autorLibro = sc.nextLine();
-                    System.out.println(libroService.readByAuthor(autorLibro));
+                   try {
+                       if(libroService.readByAuthor(autorLibro) == null){
+                           System.out.println("No se ha encontrado ningún libro con el autor: " + autorLibro);
+                          }else {
+                           System.out.println(libroService.readByAuthor(autorLibro));
+                          }
+                     }catch (Exception e){
+                       System.out.println("Error al buscar el libro");
+                   }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -175,7 +201,10 @@ public class Main {
                     System.out.println("Buscar un libro por género");
                     System.out.println("Introduce el género del libro");
                     String generoLibro = sc.nextLine();
-                    System.out.println(libroService.readByGenre(generoLibro));
+                    if (libroService.readByGenre(generoLibro).isEmpty())
+                        System.out.println("No se ha encontrado ningún libro con el género: " + generoLibro);
+                    else
+                        System.out.println(libroService.readByGenre(generoLibro));
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -191,10 +220,8 @@ public class Main {
                     String fechaPrestamo = sc.nextLine();
                     try {
                         prestamoService.create(usuarioService.readByID(idUsuario4), libroService.readByISBN(isbnLibro2), fechaPrestamo);
-                        System.out.println("Libro prestado");
                     }catch (Exception e){
                         System.out.println("Error al prestar el libro");
-                        System.out.println(e.getMessage());
                     }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
@@ -207,10 +234,8 @@ public class Main {
                     String isbnLibro3 = sc.nextLine();
                     try {
                         prestamoService.deleteByLibro(libroService.readByISBN(isbnLibro3));
-                        System.out.println("Libro devuelto");
                     }catch (Exception e){
                         System.out.println("Error al devolver el libro");
-                        System.out.println(e.getMessage());
                     }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
@@ -219,7 +244,12 @@ public class Main {
                 case 14:
                     //Lista de prestamos
                     System.out.println("Lista de prestamos");
-                    System.out.println(prestamoService.readAll());
+                    ArrayList<Prestamo> prestamos = prestamoService.readAll();
+                    if (prestamos.isEmpty()){
+                        System.out.println("No hay prestamos en la lista");
+                    }else {
+                        System.out.println(prestamos);
+                    }
                     System.out.println("pulse cualquier tecla...");
                     sc.nextLine();
                     limpiarPantalla();
@@ -235,7 +265,7 @@ public class Main {
     }
 
     private static void limpiarPantalla() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             System.out.println();
         }
     }

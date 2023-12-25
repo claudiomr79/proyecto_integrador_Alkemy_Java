@@ -34,7 +34,6 @@ public class UsuarioService {
                 return usuario;
             }
         }
-        System.out.println("No se ha encontrado el usuario con el id: " + id);
         return null;
     }
     //Actualizar un usuario por ID(Update by ID)
@@ -52,6 +51,11 @@ public class UsuarioService {
     public void deleteByID(String id){
         for (Usuario usuario : usuarios) {
             if (usuario.getId().equals(id)) {
+                //chequear que no tenga libros en su poder
+                if(usuario.getLibrosPrestados().size() > 0){
+                    System.out.println("El usuario tiene libros en su poder, no se puede eliminar");
+                    return;
+                }
                 usuarios.remove(usuario);
                 System.out.println("Usuario eliminado");
                 return; //para que no siga buscando

@@ -45,17 +45,16 @@ public class LibroService {
     //Buscar libros por autor(Read by author)
     public ArrayList<Libro> readByAuthor(String autor){
         ArrayList<Libro> librosEncontrados = new ArrayList<>();
-        try {
             for (Libro libro : biblioteca) {
                 if (libro.getAutor().equals(autor)) {
                     librosEncontrados.add(libro);
                 }
             }
-            return librosEncontrados;
-        }catch (Exception e){
-            System.out.println("No se ha encontrado ningún libro con el autor: " + autor);
-            return null;
-        }
+            if(librosEncontrados.size() > 0){//si se encontraron libros
+                return librosEncontrados;
+            }else{//si no se encontraron libros
+                return null;
+            }
     }
     //Buscar libros por género(Read by genre)
     public ArrayList<Libro> readByGenre(String genero){

@@ -60,12 +60,24 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "\n\tLibro{" +
-                "\n\ttitulo='" + titulo + '\'' +
-                "\n\tautor='" + autor + '\'' +
-                "\n\tISBN='" + ISBN + '\'' +
-                "\n\tgenero='" + genero + '\'' +
-                "\n\tdisponible=" + disponible +
-                "\n\t}\n";
+        if (disponible){
+            String ok = "Disponible";
+            return "\n\tLibro{" +
+                    "titulo='" + titulo + '\'' +
+                    "autor='" + autor + '\'' +
+                    "ISBN='" + ISBN + '\'' +
+                    "genero='" + genero + '\'' +
+                    "disponible=" + ok +
+                    "}\n";
+        }else {
+            String ok = "No disponible";
+            return "\n\tLibro{" +
+                    "titulo='" + titulo + '\'' +
+                    "autor='" + autor + '\'' +
+                    "ISBN='" + ISBN + '\'' +
+                    "genero='" + genero + '\'' +
+                    "disponible=" + ok +
+                    "}\n";
+        }
     }
 }
